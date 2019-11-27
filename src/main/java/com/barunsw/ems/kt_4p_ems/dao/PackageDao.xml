@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.ems.kt_4p_ems.dao.PackageDao">
+	<select id="selectList" parameterType="com.barunsw.ems.kt_4p_ems.model.PackageVo" 
+		resultType="com.barunsw.ems.kt_4p_ems.model.PackageVo">
+		SELECT
+			SEQ_NUM
+			, MAC_ADDRESS
+			, DATA
+		FROM
+			TB_PACKAGE
+		WHERE
+			1 = 1
+			<if test="seqNum != null and seqNum.trim().length() > 0">
+			AND SEQ_NUM = #{seqNum}
+			</if>
+	</select>
+</mapper>
