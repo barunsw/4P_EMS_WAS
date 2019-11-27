@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,14 +23,17 @@ public class PackageController {
 	@Autowired
 	private PackageService packageService;
 	
-	@RequestMapping(value = "/4p/package", method = RequestMethod.GET)
-	public ResponseEntity<ResponseVo> selectList(PackageVo packageVo) {
-		LOGGER.debug("selectList paramData:" + packageVo);
+	@RequestMapping(value = "/4p/package/{macAddress}", method = RequestMethod.GET)
+	public ResponseEntity<ResponseVo> selectList(@PathVariable String macAddress) {
+		LOGGER.debug("selectList macAddress:" + macAddress);
 		
 		ResponseVo response = new ResponseVo();
 		
 		try {
-			List<PackageVo> data = packageService.selectList(packageVo);
+			PackageVo paramVo = new PackageVo();
+			paramVo.setMacAddress(macAddress);
+			
+			List<PackageVo> data = packageService.selectList(paramVo);
 			
 			response.setResult(Result.OK);
 			response.setData(data);

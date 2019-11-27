@@ -16,5 +16,8 @@
 			<if test="seqNum != null and seqNum.trim().length() > 0">
 			AND SEQ_NUM = #{seqNum}
 			</if>
+			<if test="macAddress != null and macAddress.trim().length() > 0">
+			AND MAC_ADDRESS = #{macAddress}
+			</if>
 	</select>
 </mapper>
