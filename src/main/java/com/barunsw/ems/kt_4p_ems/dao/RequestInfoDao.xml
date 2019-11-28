@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barunsw.ems.kt_4p_ems.dao.RequestInfoDao">
+	<select id="getSetupFileInfo" parameterType="com.barunsw.ems.kt_4p_ems.model.SetupFileInfoVo"
+		resultType="com.barunsw.ems.kt_4p_ems.model.SetupFileInfoVo">
+		SELECT
+			A.OLT_IP as oltIp
+			, A.NETMASK as oltSubnet
+			, A.DEFAULT_GW as oltGw
+			, B.IPSEC_IP as ipsecIp
+			, B.AGW_IP as agwIp
+			, B.MGC_IP as mgcIp
+			, B.EMS_IP as emsIp
+		FROM
+			TB_SDN_NE A, TB_SDN_EMS_NE B
+		WHERE
+			A.AGW_MAC=#{agwMac}
+	</select>
+
+	<select id="getPackageInfo" parameterType="long"
+			resultType="com.barunsw.ems.kt_4p_ems.model.PackageInfoVo">
+		SELECT
+			VERSION as version
+		FROM
+			TB_PACKAGE_INFO
+		WHERE
+			1 = 1
+		<if test="value != null">
+			AND SEQ = #{value}
+		</if>
+		ORDER BY SEQ DESC LIMIT 1
+	</select>
+</mapper>
